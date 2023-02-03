@@ -11,8 +11,8 @@ export default class FeedbacksController {
         return res.status(201).end()
     }
 
-    getAll = async (req: Request, res: Response, _next: NextFunction) => {
-        const feedbacks = this.feedbackService.getAll();
+    getAll = async (_req: Request, res: Response, _next: NextFunction) => {
+        const feedbacks = await this.feedbackService.getAll();
         return res.status(200).json({ feedbacks })
     }
 }

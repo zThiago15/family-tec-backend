@@ -10,5 +10,12 @@ export default class FeedbackService {
                 ...feedback
             }
         })
+        return true
+    }
+
+    getAll = async () => {
+        const feedbacks = await this.prisma.feedback.findMany();
+
+        return feedbacks
     }
 }
