@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import FeedbacksController from '../controllers/feedbacksController';
+import FeedbacksMiddleware from '../middlewares/feedbackMiddleware';
 
 const router = Router();
 
 const feedbacksController = new FeedbacksController();
-router.post('/feedback', feedbacksController.create)
+const feedbacksMiddleware = new FeedbacksMiddleware();
+
+router.post('/feedback', feedbacksMiddleware.authenticateFeedbackData, feedbacksController.create)
 
 export default router;
