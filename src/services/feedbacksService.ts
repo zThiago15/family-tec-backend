@@ -5,12 +5,10 @@ export default class FeedbackService {
     constructor(private prisma = new PrismaClient()) { }
 
     create = async (feedback: IFeedback) => {
-        const feedbackCreated = await this.prisma.feedback.create({
+        await this.prisma.feedback.create({
             data: {
                 ...feedback
             }
         })
-        console.log(feedbackCreated);
-        
     }
 }
