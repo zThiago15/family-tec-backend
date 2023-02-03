@@ -1,11 +1,13 @@
 import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import router from './routes/feedback';
+import feedbackRouter from './routes/feedback';
 import 'express-async-errors'
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
-app.use(router)
+app.use(feedbackRouter)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
@@ -25,6 +27,8 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   });
 
 const port = process.env.PORT || 3000;
+
+
 
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);

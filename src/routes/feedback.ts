@@ -7,6 +7,7 @@ const router = Router();
 const feedbacksController = new FeedbacksController();
 const feedbacksMiddleware = new FeedbacksMiddleware();
 
-router.post('/feedback', feedbacksMiddleware.authenticateFeedbackData, feedbacksController.create)
+router.post('/feedback', feedbacksMiddleware.authenticateFeedbackData, feedbacksController.create);
+router.get('/feedbacks', feedbacksController.getAll);
 
 export default router;
