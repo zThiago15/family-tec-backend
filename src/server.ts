@@ -1,14 +1,12 @@
 import express from 'express';
+import router from './routes/feedback';
 
 const app = express();
 
 app.use(express.json());
+app.use(router)
 
-app.get('/', (req, res) => {
-    return res.status(200).send('teste')
-})
-
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
