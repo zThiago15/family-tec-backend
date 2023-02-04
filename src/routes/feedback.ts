@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import FeedbacksController from '../../tests/controllers/feedbackController';
+import FeedbacksController from '../controllers/feedbacksController';
 import FeedbacksMiddleware from '../middlewares/feedbackMiddleware';
 
 const router = Router();
