@@ -4,7 +4,6 @@ import { expect } from "chai";
 
 import FeedbackService from "../../services/feedbacksService";
 import FeedbackController from "../../controllers/feedbacksController"
-import app from "../../server";
 
 describe('FeedbacksController', () => {
     let feedbackController: FeedbackController;

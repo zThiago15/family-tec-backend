@@ -6,7 +6,8 @@
   "scripts": {
     "test": "ts-mocha src/tests/**/*.ts --exit",
     "dev": "tsnd src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "tsnd src/server.ts"
   },
   "keywords": [],
   "author": "Thiago Dias",
