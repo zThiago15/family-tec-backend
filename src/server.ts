@@ -1,7 +1,8 @@
-import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import express from 'express';
 import feedbackRouter from './routes/feedback';
 import 'express-async-errors'
 import cors from 'cors';
+import errorMiddleware from './errorHandling/errorMiddleware';
 
 const app = express();
 
@@ -9,22 +10,7 @@ app.use(cors())
 app.use(express.json());
 app.use(feedbackRouter)
 
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-
-    const { stack, message, name } = err as any;
-
-    console.error(stack);
-    
-    switch (name) {
-        case 'BadRequestError':
-            return res.status(400).json({ message })
-        case 'NotFoundError':
-            return res.status(404).json({ message })
-        default:
-            return res.status(500).json({ message })
-        }
-    
-  });
+app.use(errorMiddleware);
 
 const port = process.env.PORT || 3000;
 
