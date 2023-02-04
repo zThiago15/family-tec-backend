@@ -13,7 +13,7 @@
     "test": "ts-mocha src/tests/**/*.ts --exit",
     "dev": "tsnd src/server.ts",
     "build": "tsc",
-    "start": "node build/server.js"
+    "start": "node build/src/server.js"
   },
   "keywords": [],
   "author": "Thiago Dias",
