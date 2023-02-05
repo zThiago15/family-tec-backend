@@ -18,4 +18,15 @@ export default class FeedbackService {
 
         return feedbacks
     }
+
+    getTopFive = async () => {
+        const topFive = await this.prisma.feedback.findMany({
+            where: {
+                starRating: 5
+            },
+            take: 5
+        })
+
+        return topFive;
+    }
 }
