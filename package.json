@@ -10,7 +10,7 @@
     "README.md"
   ],
   "scripts": {
-    "test": "ts-mocha src/tests/**/*.ts --exit",
+    "test": "ts-mocha src/tests/**/*.ts --watch --exit",
     "dev": "tsnd src/server.ts",
     "build": "tsc",
     "start": "node build/src/server.js"
