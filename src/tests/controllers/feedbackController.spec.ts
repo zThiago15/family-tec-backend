@@ -1,40 +1,72 @@
-/* import { NextFunction, Request, Response } from "express";
+import chai, { expect } from "chai";
 import * as sinon from 'sinon';
-import { expect } from "chai";
+import chatHttp from 'chai-http';
+chai.use(chatHttp)
 
 import FeedbackService from "../../services/feedbacksService";
-// import FeedbackController from "../../controllers/feedbacksController"
+import app from "../../server";
+import allFeedbacksMock, { topFiveFeedbacksMock } from "../mocks/feedback";
 
 describe('FeedbacksController', () => {
-    let feedbackController: FeedbackController;
-    let feedbackService: FeedbackService;
-    let req: Request;
-    let res: any;
-    let next: NextFunction;
+    const expect = chai.expect;
 
     beforeEach(() => {
-        feedbackService = new FeedbackService();
-        feedbackController = new FeedbackController(feedbackService);
-
-        req = {} as Request
-        res = {} as Response
-        next = sinon.stub() as any as NextFunction
-        res.status = sinon.stub()
-        res.json = sinon.stub().returns(res);
-        res.end = sinon.stub().returns(res);
-    });
+        const feedbackService = new FeedbackService();
+        sinon.stub(feedbackService, 'getAll').resolves(allFeedbacksMock);
+        sinon.stub(feedbackService, 'getTopFive').resolves(topFiveFeedbacksMock);
+        sinon.stub(feedbackService, 'create').resolves(true);
+    })
 
     afterEach(() => {
         sinon.restore();
     })
 
-    describe('create', () => {
-        it('should return 201 status code after creating feedback', async () => {
-            req.body = {};
+    describe('getAll', () => {
+        it('should return all the feedbacks', async () => {
+            
+            const response = await chai.request(app).get('/feedbacks')
 
-            await feedbackController.create(req, res, next)
-            expect(res.status.calledWith(201)).to.be.true;
+            expect(response.status).to.be.equal(200);
         });
     });
+
+    describe('getTopFive', () => {
+        it('should return 200 status for getting top five feedbacks', async () => {
+            
+            const response = await chai.request(app).get('/feedbacktopfive');
+
+            expect(response.status).to.be.equal(200);
+        });
+    });
+
+    describe('create', () => {
+        it('should send a 404 status if name, feedback or starRating are empty', async () => {
+            const response = await chai.request(app).post('/feedback').send({
+                name: 'John',
+                starRating: 5,
+            });
+            expect(response.status).to.be.equal(404);
+        });
+
+        it('should send a 400 status if starRating is greater than 5', async () => {
+            const response = await chai.request(app).post('/feedback').send({
+                name: 'John',
+                feedback: 'great service',
+                starRating: 8,
+            });
+            expect(response.status).to.be.equal(400);
+        });
+
+        it('should create a feedback sending a 201 status', async () => {
+            const feedbackBody = {
+                name: 'John',
+                feedback: 'great service',
+                starRating: 5,
+            }
+
+            const response = await chai.request(app).post('/feedback').send(feedbackBody);
+
+            expect(response.status).to.be.equal(201);
+        })
+    })
 });
- */
