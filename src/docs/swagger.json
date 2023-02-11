@@ -30,6 +30,40 @@
 									}
 								}
 						}
+				},
+				"/feedbacks": {
+					"get": {
+						"description": "it returns all feedbacks registered",
+						"responses": {
+							"200": {
+								"description": "all feedbacks fetched",
+								"content": {
+									"application/json": {
+										"schema": {
+											"$ref": "#/components/schemas/ResponseFeedbacks"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"/feedbackstopfive": {
+					"get": {
+						"description": "it returns top 5 feedbacks registered with rating of 5",
+						"responses": {
+							"200": {
+								"description": "it returns top 5 feedbacks returned successfully",
+								"content": {
+									"application/json": {
+										"schema": {
+											"$ref": "#/components/schemas/ResponseTopFiveFeedbacks"
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 		},
 		"components": {
@@ -51,6 +85,53 @@
 							"type": "number",
 							"description": "number of star rating given by customer",
 							"example": 5
+						}
+					}
+				},
+				"ResponseFeedbacks": {
+					"type": "array", 
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "name of the customer",
+								"example": "Fabiano"
+							},
+							"feedback": {
+								"type": "string",
+								"description": "review of service given by customer",
+								"example": "great service!"
+							},
+							"starRating": {
+								"type": "number",
+								"description": "number of star rating given by customer",
+								"example": 5
+							}
+						}
+					}
+				},
+				"ResponseTopFiveFeedbacks": {
+					"type": "array",
+					"maxItems": 5,
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "name of the customer",
+								"example": "Fabiano"
+							},
+							"feedback": {
+								"type": "string",
+								"description": "review of service given by customer",
+								"example": "great service!"
+							},
+							"starRating": {
+								"type": "number",
+								"description": "number of star rating given by customer",
+								"example": 5
+							}
 						}
 					}
 				}
