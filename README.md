@@ -11,7 +11,7 @@ Este é API Rest de feedbacks, que contém os campos de nome, texto de feedback 
 - Railay(Deploy)
 - Mocha, chai, chai-http e sinon(testes unitários)
     
-## API Endpoints
+## API Endpoints 🔍
 
 - GET `/feedbacks` - retrieve a list of all feedbacks
 - GET `/feedbacktopfive` - retorna 5 feedbacks
