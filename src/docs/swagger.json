@@ -1,0 +1,11 @@
+{
+    "openapi": "3.0.0",
+    "title": "Feedbacks API",
+    "summary": "A manager of feedbacks.",
+    "description": "API to store data about feedbacks of a washing machine technician",
+    "contact": {
+      "name": "API Support",
+      "email": "thiaguinhodias.15@gmail.com"
+    },
+    "version": "1.0.0"
+}
