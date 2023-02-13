@@ -18,7 +18,7 @@ Este é API Rest de feedbacks, que contém os campos de nome, texto de feedback 
 - POST `/feedbacks` - cria um feedback
 
 ## Documentação
-⚠️ Em construção.. 🚧
+Feita a documentação dos endpoints da API usando [Swagger](https://swagger.io/).
 
 ## Deploy 🚀
 Foi feito o deploy do Feedback API no Railway
