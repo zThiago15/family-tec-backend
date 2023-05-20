@@ -35,45 +35,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const chai_1 = __importDefault(require("chai"));
 const sinon = __importStar(require("sinon"));
-const feedbacksService_1 = __importDefault(require("../../src/services/feedbacksService"));
-const feedbackController_1 = __importDefault(require("../../src/controllers/feedbackController"));
+const chai_http_1 = __importDefault(require("chai-http"));
+chai_1.default.use(chai_http_1.default);
+const feedbacksService_1 = __importDefault(require("../../services/feedbacksService"));
+const server_1 = __importDefault(require("../../server"));
+const feedback_1 = __importStar(require("../mocks/feedback"));
 describe('FeedbacksController', () => {
-    let feedbacksController;
-    let feedbackService;
-    let req;
-    let res;
-    let next;
+    const expect = chai_1.default.expect;
     beforeEach(() => {
-        feedbackService = new feedbacksService_1.default();
-        feedbacksController = new feedbackController_1.default(feedbackService);
-        req = sinon.stub();
-        res = sinon.stub();
-        next = sinon.stub();
-        res.status = sinon.stub().returns(res);
-        res.json = sinon.stub().returns(res);
-        res.end = sinon.stub().returns(res);
+        const feedbackService = new feedbacksService_1.default();
+        sinon.stub(feedbackService, 'getAll').resolves(feedback_1.default);
+        sinon.stub(feedbackService, 'getTopFive').resolves(feedback_1.topFiveFeedbacksMock);
+        sinon.stub(feedbackService, 'create').resolves(true);
     });
-    describe('create', () => {
-        it('should return 201 status code', () => __awaiter(void 0, void 0, void 0, function* () {
-            req.body = {};
-            const createStub = sinon.stub(feedbackService, 'create').resolves(true);
-            const statusSpy = sinon.spy(res, 'status');
-            const endSpy = sinon.spy(res, 'end');
-            yield feedbacksController.create(req, res, next);
-            sinon.assert.calledWith(statusSpy, 201);
-            sinon.assert.calledOnce(endSpy);
-            sinon.assert.calledOnce(createStub);
+    afterEach(() => {
+        sinon.restore();
+    });
+    describe('getAll', () => {
+        it('should return all the feedbacks', () => __awaiter(void 0, void 0, void 0, function* () {
+            const response = yield chai_1.default.request(server_1.default).get('/feedbacks');
+            expect(response.status).to.be.equal(200);
         }));
     });
-    // describe('getAll', () => {
-    //     it('should return 200 status code and the feedbacks', async () => {
-    //         const feedbacks = [{}, {}];
-    //         const getAllStub = sinon.stub(feedbackService, 'getAll').resolves(feedbacks);
-    //         await feedbacksController.getAll(req, res, next);
-    //         sinon.assert.calledWith(res.status, 200);
-    //         sinon.assert.calledWith(res.json, feedbacks);
-    //         sinon.assert.calledOnce(getAllStub);
-    //     });
-    // });
+    describe('getTopFive', () => {
+        it('should return 200 status for getting top five feedbacks', () => __awaiter(void 0, void 0, void 0, function* () {
+            const response = yield chai_1.default.request(server_1.default).get('/feedbacktopfive');
+            expect(response.status).to.be.equal(200);
+        }));
+    });
+    describe('create', () => {
+        it('should send a 404 status if name, feedback or starRating are empty', () => __awaiter(void 0, void 0, void 0, function* () {
+            const response = yield chai_1.default.request(server_1.default).post('/feedback').send({
+                name: 'John',
+                starRating: 5,
+            });
+            expect(response.status).to.be.equal(404);
+        }));
+        it('should send a 400 status if starRating is greater than 5', () => __awaiter(void 0, void 0, void 0, function* () {
+            const response = yield chai_1.default.request(server_1.default).post('/feedback').send({
+                name: 'John',
+                feedback: 'great service',
+                starRating: 8,
+            });
+            expect(response.status).to.be.equal(400);
+        }));
+        it('should create a feedback sending a 201 status', () => __awaiter(void 0, void 0, void 0, function* () {
+            const feedbackBody = {
+                name: 'John',
+                feedback: 'great service',
+                starRating: 5,
+            };
+            const response = yield chai_1.default.request(server_1.default).post('/feedback').send(feedbackBody);
+            expect(response.status).to.be.equal(201);
+        }));
+    });
 });
