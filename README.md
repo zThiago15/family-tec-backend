@@ -8,7 +8,7 @@ Este é API Rest de feedbacks, que contém os campos de nome, texto de feedback 
 - Express
 - Prisma(ORM)
 - PostgreSQL
-- Railay(Deploy)
+- Railway(Deploy)
 - Mocha, chai, chai-http e sinon(testes unitários)
     
 ## API Endpoints 🔍
