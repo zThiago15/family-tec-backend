@@ -13,7 +13,7 @@ Este é API Rest de feedbacks, que contém os campos de nome, texto de feedback 
     
 ## API Endpoints 🔍
 
-- GET `/feedbacks` - retrieve a list of all feedbacks
+- GET `/feedbacks` - retorna lista de todos os feedbacks
 - GET `/feedbacktopfive` - retorna 5 feedbacks
 - POST `/feedbacks` - cria um feedback
 
