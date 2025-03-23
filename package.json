@@ -44,7 +44,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@prisma/client": "^4.7.0",
+    "@prisma/client": "^4.16.2",
     "@types/cors": "^2.8.13",
     "@types/restify-errors": "^4.3.4",
     "bcrypt": "^5.1.0",
