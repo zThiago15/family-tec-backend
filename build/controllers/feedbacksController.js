@@ -29,6 +29,10 @@ class FeedbacksController {
             const topFive = yield this.feedbackService.getTopFive();
             return res.status(200).json(topFive);
         });
+        this.delete = (_req, res, _next) => __awaiter(this, void 0, void 0, function* () {
+            yield this.feedbackService.getTopFive();
+            return res.status(204).send('Feedback deleted');
+        });
     }
 }
 exports.default = FeedbacksController;

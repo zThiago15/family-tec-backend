@@ -20,4 +20,10 @@ export default class FeedbacksController {
         const topFive = await this.feedbackService.getTopFive();
         return res.status(200).json(topFive)
     }
+
+    delete = async (_req: Request, res: Response, _next: NextFunction) => {
+        await this.feedbackService.getTopFive();
+        return res.status(204).send('Feedback deleted');
+    }
+
 }

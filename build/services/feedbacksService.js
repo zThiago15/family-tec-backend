@@ -32,6 +32,14 @@ class FeedbackService {
             });
             return topFive;
         });
+        this.delete = (id) => __awaiter(this, void 0, void 0, function* () {
+            yield this.prisma.feedback.delete({
+                where: {
+                    id
+                }
+            });
+            return;
+        });
     }
 }
 exports.default = FeedbackService;

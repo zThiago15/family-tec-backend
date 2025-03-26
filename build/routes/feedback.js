@@ -12,4 +12,8 @@ const feedbacksMiddleware = new feedbackMiddleware_1.default();
 router.post('/feedback', feedbacksMiddleware.authenticateFeedbackData, feedbacksController.create);
 router.get('/feedbackstopfive', feedbacksController.getTopFive);
 router.get('/feedbacks', feedbacksController.getAll);
+router.get('/', (_req, res) => {
+    return res.status(200).send('Welcome to the server!');
+});
+router.delete('/feedback/:id', feedbacksController.delete);
 exports.default = router;

@@ -13,5 +13,6 @@ router.get('/feedbacks', feedbacksController.getAll);
 router.get('/', (_req: Request, res: Response) => {
     return res.status(200).send('Welcome to the server!');
 })
+router.delete('/feedback/:id', feedbacksController.delete);
 
 export default router;

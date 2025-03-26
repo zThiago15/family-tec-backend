@@ -29,4 +29,15 @@ export default class FeedbackService {
 
         return topFive;
     }
+    
+
+    delete = async (id: number) => {
+        await this.prisma.feedback.delete({
+            where: {
+                id
+            }
+        })
+
+        return;
+    }
 }
